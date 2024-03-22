@@ -66,15 +66,10 @@ connections for the purposes of durable subscriptions.
         //shutdown connection
         session.close();
         con.close();
+        System.out.println("Send message: " + message);
         System.out.println("Finished...");
     }
    ```
-   
-   ![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/bd32e4ee-5d32-42d0-92d1-c330485ad4fb)
-
-   ![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/8c46865c-255d-4295-b6ba-3ac4a711065c)
-   
-
 ### 2. Queue receiver
    ```js
    static void receiveMsg() throws NamingException, JMSException {
@@ -91,17 +86,28 @@ connections for the purposes of durable subscriptions.
         Connection connection = factory.createConnection("admin","admin");
         connection.start();
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-        Destination queue = session.createQueue("dynamicQueues/teo");
+        Destination destination= (Destination) ctx.lookup("dynamicQueues/dynamicQueues/teo");
         MessageConsumer receiver = session.createConsumer(queue);
         receiver.setMessageListener(message ->
                 System.out.println("---receiver:" + message));
     }
    ```
+Listening for message...
 
-![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/bca4931f-324e-4030-953e-ed2f2eb73fc0)
+![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/75948533-f2db-42ca-bd08-0ee323e10c1d)
 
-![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/303ab0fe-1934-452f-bc80-4f687062e90a)
+When a sender dispatches a message, the receiver is poised to accept it, provided both share a common destination queue. In this instance, the designated queue is "dynamicQueues/teo".
 
-![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/5eeee212-2d0a-498e-8a96-d9187190e724)
+Receiver: `Destination queue = session.createQueue("dynamicQueues/teo");`
+
+Sender:` Destination destination = (Destination) ctx.lookup("dynamicQueues/dynamicQueues/teo");`
+
+![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/70901822-330e-40b2-96cb-7a1ce4e0484d)
+
+#### Visualizing the Queue in ActiveMQ
+Upon inspecting the ActiveMQ queue, we can glean detailed information about the queued messages
+
+![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/a35f4f8e-01a4-45f4-ad11-befc8e732218)
+
 
 
