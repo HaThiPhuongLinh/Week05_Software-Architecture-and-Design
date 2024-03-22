@@ -19,13 +19,11 @@ public class SampleTextSender {
         //create context
         Context ctx=new InitialContext(settings);
         //lookup JMS connection factory
-        ConnectionFactory factory=
-                (ConnectionFactory)ctx.lookup("ConnectionFactory");
+        ConnectionFactory factory= (ConnectionFactory)ctx.lookup("ConnectionFactory");
         //lookup destination. (If not exist-->ActiveMQ create once)
-        Destination destination=
-                (Destination) ctx.lookup("dynamicQueues/thanthidet");
+        Destination destination= (Destination) ctx.lookup("dynamicQueues/dynamicQueues/teo");
         //get connection using credential
-        Connection con=factory.createConnection("admin","admin");
+        Connection con = factory.createConnection("admin","admin");
         //connect to MOM
         con.start();
         //create session
@@ -41,6 +39,7 @@ public class SampleTextSender {
         //shutdown connection
         session.close();
         con.close();
+        System.out.println("Send message: " + message);
         System.out.println("Finished...");
     }
 }
