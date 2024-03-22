@@ -34,7 +34,7 @@ connections for the purposes of durable subscriptions.
 
 ![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/35685835-77f0-4e60-9bf0-48ebfc3f71fd)
 
-## Now we have two queues, one to send and one to receive
+## Now, let’s take a look at how messages are sent and received through the queue
 
 ### 1. Queue sender
    ```js
@@ -92,15 +92,18 @@ connections for the purposes of durable subscriptions.
                 System.out.println("---receiver:" + message));
     }
    ```
-Listening for message...
+## Process
+Receiver is listening for message...
 
 ![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/75948533-f2db-42ca-bd08-0ee323e10c1d)
 
-When a sender dispatches a message, the receiver is poised to accept it, provided both share a common destination queue. In this instance, the designated queue is "dynamicQueues/teo".
+> When a sender dispatches a message, the receiver is poised to accept it, provided both share a common destination queue. In this instance, the designated queue is "dynamicQueues/teo".
 
-Receiver: `Destination queue = session.createQueue("dynamicQueues/teo");`
+   > Receiver: `Destination queue = session.createQueue("dynamicQueues/teo");`
 
-Sender:` Destination destination = (Destination) ctx.lookup("dynamicQueues/dynamicQueues/teo");`
+   > Sender: `Destination destination = (Destination) ctx.lookup("dynamicQueues/dynamicQueues/teo");` <
+
+The sender sends a message, and the receiver receives it
 
 ![image](https://github.com/HaThiPhuongLinh/Week05_Software-Architecture-and-Design/assets/109422010/70901822-330e-40b2-96cb-7a1ce4e0484d)
 
